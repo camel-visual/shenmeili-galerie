@@ -57,8 +57,8 @@ header{
 .author-note{font-size:8px;color:var(--dim);letter-spacing:.18em}
 .author-note b{color:var(--goldl)}
 .feedback{
-  font-size:8px;color:var(--dim);letter-spacing:.18em;
-  text-decoration:none;border-bottom:1px solid var(--bdr);
+  font-size:8px;color:var(--gold);letter-spacing:.18em;
+  text-decoration:none;border-bottom:1px solid var(--goldd);
   padding-bottom:1px;transition:color .25s;
 }
 .feedback:hover{color:var(--goldl)}
@@ -284,6 +284,101 @@ input[type=range]::-webkit-slider-thumb{
   opacity:0;
 }
 
+
+/* 桌面端强制隐藏所有移动端元素（移动端媒体查询在后面覆盖） */
+.mob-tabs,.mob-panel,.mob-panel.act,.mob-export{display:none!important;}
+.mob-panel{padding:14px 16px 20px;}
+
+/* ══ MOBILE RESPONSIVE ══ */
+@media(max-width:680px){
+  body{overflow:auto;height:auto;}
+
+  /* Header简化 */
+  header{padding:8px 14px;}
+  .brand-name{font-size:12px;letter-spacing:.12em;}
+  .brand-ver{display:none;}
+  .hdr-right .free-badge,.hdr-right .author-note{display:none;}
+  .feedback{font-size:9px;}
+
+  /* 主布局：纵向排列，预览在上 */
+  .app{
+    display:flex;flex-direction:column;
+    grid-template-columns:none;
+    height:auto;overflow:visible;
+  }
+
+  /* 预览区：固定55vh */
+  .carea{
+    height:55vh;min-height:200px;
+    flex-shrink:0;
+    background:var(--bg);
+  }
+
+  /* 侧边栏变底部面板 */
+  .sb{
+    background:var(--surf);
+    border-right:none;
+    border-top:1px solid var(--bdr);
+    overflow:visible;
+    padding:0;
+    gap:0;
+    flex:1;
+  }
+
+  /* Tab导航栏 */
+  .mob-tabs{
+    border-bottom:1px solid var(--bdr);
+    background:var(--surf);
+    position:sticky;top:0;z-index:100;
+    flex-shrink:0;
+  }
+  .mob-tab{
+    flex:1;padding:10px 4px 9px;
+    text-align:center;font-size:7px;
+    letter-spacing:.18em;color:var(--dim);
+    cursor:pointer;border-bottom:2px solid transparent;
+    transition:all .2s;background:transparent;border-top:none;border-left:none;border-right:none;
+    font-family:'Noto Sans SC',sans-serif;font-weight:300;
+  }
+  .mob-tab.act{color:var(--gold);border-bottom-color:var(--gold);}
+
+  /* Tab内容面板 — display由外部规则控制 */
+
+  /* 在移动端隐藏桌面侧边栏的各个section（用mob-panel替代） */
+  .sb > div:not(.mob-tabs):not(.mob-panel){display:none!important;}
+  .sb > .btnrow{display:none!important;}
+
+  /* 移动端底部固定导出栏 */
+  .mob-export{
+    position:sticky;bottom:0;
+    display:flex;gap:8px;padding:10px 16px;
+    background:var(--surf);border-top:1px solid var(--bdr);
+    z-index:100;
+  }
+  .mob-export .btn{padding:12px 8px;font-size:9px;}
+
+  /* Footer隐藏 */
+  footer{display:none;}
+
+  /* Slogan隐藏 */
+  .slogan{display:none;}
+
+  /* 画框Grid在移动端3列 */
+  .fgrid{grid-template-columns:repeat(3,1fr);}
+
+  /* 墙色Grid在移动端6列 */
+  .wgrid{grid-template-columns:repeat(6,1fr);}
+
+  /* Hint文字缩小 */
+  .hint-word{font-size:28px;}
+  .hint-sub{font-size:7px;}
+
+  /* 移动端显示移动端专属元素 */
+  .mob-tabs{display:flex!important;}
+  .mob-panel.act{display:block!important;}
+  .mob-export{display:flex!important;}
+}
+
 /* ══ FOOTER ══ */
 footer{
   border-top:1px solid var(--bdr);padding:6px 26px;flex-shrink:0;
@@ -303,12 +398,12 @@ footer{
 <header>
   <div class="brand">
     <div class="brand-name">深美力画廊 · SHEN MEI LI GALERIE</div>
-    <div class="brand-ver">v 10.0</div>
+    <div class="brand-ver">v 36.0</div>
   </div>
   <div class="hdr-right">
     <div class="free-badge">✦ 完全免费</div>
     <div class="author-note">由 <b>骆驼 Camel</b> 制作 · 欢迎分享</div>
-    <a class="feedback" href="/cdn-cgi/l/email-protection#7433151b18111d4246424c454c341319151d185a171b19">意见反馈 ✉</a>
+    <a class="feedback" href="mailto:gaolei626818@gmail.com">意见反馈 ✉</a>
   </div>
 </header>
 
@@ -373,14 +468,6 @@ footer{
           <div class="clbl">阴影强度 <span id="shv">55</span></div>
           <input type="range" min="0" max="100" value="55" oninput="upd('sh',this.value,'shv')">
         </div>
-        <div class="ci">
-          <div class="clbl">垂直位置 <span id="vpv">44</span></div>
-          <input type="range" min="10" max="78" value="44" oninput="upd('vp',this.value,'vpv')">
-        </div>
-        <div class="ci">
-          <div class="clbl">联幅间距 <span id="gpv">24</span></div>
-          <input type="range" min="0" max="80" value="24" oninput="upd('gp',this.value,'gpv')">
-        </div>
       </div>
     </div>
 
@@ -416,6 +503,102 @@ footer{
     <div class="btnrow">
       <button class="btn btn-reset" onclick="resetAll()">重置</button>
       <button class="btn btn-export" id="dlbtn" disabled onclick="doDownload()">↓ 导出作品</button>
+    </div>
+
+    <!-- ══ 移动端 Tab 导航 + 面板 ══ -->
+    <nav class="mob-tabs" id="mobTabs">
+      <button class="mob-tab act" onclick="mobSwitch(0,this)">展陈</button>
+      <button class="mob-tab" onclick="mobSwitch(1,this)">画框</button>
+      <button class="mob-tab" onclick="mobSwitch(2,this)">背景</button>
+      <button class="mob-tab" onclick="mobSwitch(3,this)">调整</button>
+      <button class="mob-tab" onclick="mobSwitch(4,this)">铭牌</button>
+    </nav>
+
+    <!-- 面板0：展陈 + 上传 -->
+    <div class="mob-panel act" id="mobP0">
+      <div class="sec-title" style="margin-bottom:9px">展陈模式</div>
+      <div class="mtabs" id="mobMtabs">
+        <div class="mtab act" onclick="setMode('single',this);syncMtabs(this,0)">单幅</div>
+        <div class="mtab" onclick="setMode('diptych',this);syncMtabs(this,1)">双联</div>
+        <div class="mtab" onclick="setMode('quad',this);syncMtabs(this,2)">四幅</div>
+      </div>
+      <div style="margin-top:14px">
+        <div class="sec-title" style="margin-bottom:9px">上传作品</div>
+        <div id="mobSingleUp">
+          <div class="upzone" id="mobUpzone" onclick="document.getElementById('mpi0').click()">
+            <input type="file" id="mpi0" accept="image/*" onchange="loadPhoto(event,0);mobUploadDone(event,0)">
+            <span class="upicon">⬆</span>
+            <p>点击上传照片<br>JPG · PNG · WEBP</p>
+          </div>
+        </div>
+        <div id="mobMultiUp" style="display:none">
+          <div class="slotgrid s2" id="mobSlotGrid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 面板1：画框 -->
+    <div class="mob-panel" id="mobP1">
+      <div class="sec-title" style="margin-bottom:9px">画框样式</div>
+      <div class="fgrid" id="mobFgrid"></div>
+    </div>
+
+    <!-- 面板2：背景墙 -->
+    <div class="mob-panel" id="mobP2">
+      <div class="sec-title" style="margin-bottom:9px">背景墙</div>
+      <div class="wgrid" id="mobWgrid"></div>
+      <div class="wall-up-row" style="margin-top:8px">
+        <div class="wall-upzone" id="mobWallUpzone" onclick="document.getElementById('mobWallPi').click()">
+          <input type="file" id="mobWallPi" accept="image/*" onchange="loadWallPhoto(event)">
+          <span id="mobWallUpLabel">📷 上传自定义背景图</span>
+        </div>
+        <button class="wall-clear-btn" id="mobWallClearBtn" onclick="clearWallPhoto()" style="display:none">✕ 清除</button>
+      </div>
+    </div>
+
+    <!-- 面板3：调整 -->
+    <div class="mob-panel" id="mobP3">
+      <div class="sec-title" style="margin-bottom:9px">调整</div>
+      <div class="ctrl">
+        <div class="ci"><div class="clbl">画框粗细 <span id="mobFwv">36</span></div>
+          <input type="range" min="6" max="80" value="36" oninput="upd('fw',this.value,'fwv');document.getElementById('mobFwv').textContent=this.value"></div>
+        <div class="ci"><div class="clbl">照片大小 <span id="mobPsv">58</span>%</div>
+          <input type="range" min="25" max="85" value="58" oninput="upd('ps',this.value,'psv');document.getElementById('mobPsv').textContent=this.value"></div>
+        <div class="ci"><div class="clbl">阴影强度 <span id="mobShv">55</span></div>
+          <input type="range" min="0" max="100" value="55" oninput="upd('sh',this.value,'shv');document.getElementById('mobShv').textContent=this.value"></div>
+      </div>
+    </div>
+
+    <!-- 面板4：铭牌 + 水印 -->
+    <div class="mob-panel" id="mobP4">
+      <div class="sec-title" style="margin-bottom:9px">展览铭牌</div>
+      <input class="cinput" id="mobCt" placeholder="作品主标题" oninput="document.getElementById('ct').value=this.value;render()">
+      <input class="cinput sub" id="mobCs" placeholder="艺术家 · 系列名称" oninput="document.getElementById('cs').value=this.value;render()">
+      <input class="cinput sub" id="mobCm" placeholder="媒介 · 尺寸 · 年份" oninput="document.getElementById('cm').value=this.value;render()" style="margin-top:6px;font-size:8px;letter-spacing:.12em;opacity:.8">
+      <div style="margin-top:8px;display:flex;gap:6px;align-items:center">
+        <label class="wm-check" style="gap:5px">
+          <input type="checkbox" id="mobCaptionShow" checked onchange="document.getElementById('captionShow').checked=this.checked;render()">
+          <span style="font-size:7px;letter-spacing:.2em;color:var(--dim)">显示铭牌</span>
+        </label>
+        <div style="flex:1"></div>
+        <label class="wm-check" style="gap:5px">
+          <input type="checkbox" id="mobCaptionDark" onchange="document.getElementById('captionDark').checked=this.checked;render()">
+          <span style="font-size:7px;letter-spacing:.2em;color:var(--dim)">深色铭牌</span>
+        </label>
+      </div>
+      <div class="sec-title" style="margin-top:16px;margin-bottom:9px">署名水印</div>
+      <div class="wm-row">
+        <label class="wm-check">
+          <input type="checkbox" id="mobWmOn" checked onchange="document.getElementById('wmOn').checked=this.checked;render()"> 显示
+        </label>
+        <input class="wm-inp" id="mobWmText" value="© 骆驼" oninput="document.getElementById('wmText').value=this.value;render()">
+      </div>
+    </div>
+
+    <!-- 移动端底部导出栏 -->
+    <div class="mob-export">
+      <button class="btn btn-reset" style="flex:0 0 auto;padding:12px 18px;" onclick="resetAll()">重置</button>
+      <button class="btn btn-export" id="mobDlbtn" disabled onclick="doDownload()" style="flex:1">↓ 导出作品</button>
     </div>
 
   </div><!-- /sb -->
@@ -471,10 +654,10 @@ let spotX=0.5, spotY=0.38;
 
 // ═══════════════ WALLS ═══════════════
 const walls=[
-  {n:'石灰白',c:'#E8E6E1'},{n:'冷云母',c:'#D8D9D7'},{n:'亚麻灰',c:'#CFCEC7'},
-  {n:'羊皮纸',c:'#DED4C1'},{n:'莫兰迪',c:'#BDB4A7'},{n:'灰陶土',c:'#A39B90'},
-  {n:'鼠尾草',c:'#8E968D'},{n:'松烟色',c:'#7B8487'},{n:'胭脂暗',c:'#5E4C4A'},
-  {n:'矿石蓝',c:'#3E454F'},{n:'焦茶棕',c:'#4A423C'},{n:'美术馆黑',c:'#262523'},
+  {n:'展厅白',c:'#F2EDE4'},{n:'羊皮纸',c:'#DED4C1'},{n:'石膏粉',c:'#D4C4B0'},
+  {n:'陶土灰',c:'#B8A898'},{n:'莫兰迪',c:'#9E9488'},{n:'鼠尾草',c:'#7E8C7A'},
+  {n:'松烟色',c:'#6B7478'},{n:'胭脂暗',c:'#5E4C4A'},{n:'矿石蓝',c:'#3E454F'},
+  {n:'焦茶棕',c:'#4A423C'},{n:'大英黑',c:'#2A2520'},{n:'展厅黑',c:'#1C1A17'},
 ];
 
 // ══════════════════════════════════════════════════════
@@ -488,23 +671,23 @@ const walls=[
 //   ⑤ 照片（由调用方在 inset 处绘制）
 // ══════════════════════════════════════════════════════
 const frames=[
-  {n:'博物馆黑', fn:fObsidian},
+  {n:'白枫木',   fn:fMaple},
   {n:'无框',       fn:fBorderless},
   {n:'浅砂岩',   fn:fSandstone},
-  {n:'白枫木',   fn:fMaple},
+  {n:'博物馆黑', fn:fObsidian},
   {n:'镜面钢',   fn:fChrome},
   {n:'自适应',   fn:fAdaptive},
 ];
 
 // ── 通用：卡纸 + 1px ShadowGap ──────────────────────
 // 返回内孔坐标 {ix,iy,iw,ih}
-function drawMat(ctx,x,y,w,h,fw){
+function drawMat(ctx,x,y,w,h,fw,matColor){
   const matW=Math.round(fw*0.40);
   const ix=x+fw+matW, iy=y+fw+matW;
   const iw=w-fw*2-matW*2, ih=h-fw*2-matW*2;
 
-  // 卡纸（暖白石灰 #FDFBF5）
-  ctx.fillStyle='#FDFBF5';
+  // 卡纸颜色：自适应模式传入提取色，其他用暖白
+  ctx.fillStyle=matColor||'#FDFBF5';
   ctx.beginPath();
   ctx.rect(x+fw,y+fw,w-fw*2,h-fw*2);
   ctx.rect(ix,iy,iw,ih);
@@ -596,6 +779,7 @@ function fAdaptive(ctx,x,y,w,h,fw){
   ctx.strokeStyle='rgba(255,255,255,0.08)';
   ctx.lineWidth=0.6;
   ctx.strokeRect(x+0.5,y+0.5,w-1,h-1);
+  drawMat(ctx,x,y,w,h,fw,S.adaptiveMatColor||'#F3F1EC');
 }
 function shiftColor(hex,amt){
   try{
@@ -819,6 +1003,7 @@ function extractAdaptiveColors(img){
     S.adaptiveFrameColor='#8A8178';
     S.adaptiveMatColor='#EFEAE2';
     S.wall='#ECE8E1';
+    S.adaptiveBgColor='#ECE8E1';
     return;
   }
 
@@ -859,6 +1044,7 @@ function extractAdaptiveColors(img){
   S.adaptiveFrameColor=rgbToHex(fr,fg,fb);
   S.adaptiveMatColor=rgbToHex(mr,mg,mb);
   S.wall=rgbToHex(wr,wg,wb);
+  S.adaptiveBgColor=S.wall;
 }
 // ═══════════════ LOAD PHOTO ═══════════════
 function loadPhoto(e,idx){
@@ -882,6 +1068,7 @@ function loadPhoto(e,idx){
       document.getElementById('hint').style.display=any?'none':'flex';
       document.getElementById('mc').style.display=any?'block':'none';
       document.getElementById('dlbtn').disabled=!any;
+      const mb=document.getElementById('mobDlbtn');if(mb)mb.disabled=!any;
       render();
     };
     img.src=ev.target.result;
@@ -909,7 +1096,7 @@ function render(){
   const ctx=canvas.getContext('2d');
 
   // Wall
-  const wc=(S.fi===5&&S.photos.some(p=>p))?S.adaptiveBgColor:walls[S.wi].c;
+  const wc=(S.fi===5&&S.photos.some(p=>p))?(S.wall||S.adaptiveBgColor):walls[S.wi].c;
   if(S.wallPhoto){
     // 用户自定义背景图
     ctx.drawImage(S.wallPhoto,0,0,W,H);
@@ -1068,22 +1255,39 @@ function drawFramedPhoto(ctx,x,y,w,h,fw,img,photoH,yOff){
   ctx.fillRect(x,y,w,h);
   ctx.restore();
 
-  // 画框材质
+  // 画框材质（非自适应框在fn里已调用drawMat，自适应框fAdaptive也已调用drawMat）
   frames[S.fi].fn(ctx,x,y,w,h,fw);
 
-  const ix=x+fw, iy=y+fw, iw=w-fw*2, ih=h-fw*2;
+  // 计算卡纸内孔坐标（与drawMat内的计算保持一致）
+  const matW=Math.round(fw*0.40);
+  const ix=x+fw+matW, iy=y+fw+matW;
+  const iw=w-fw*2-matW*2, ih=h-fw*2-matW*2;
 
-  ctx.fillStyle=isAdaptive ? (S.adaptiveMatColor || '#F3F1EC') : '#FDFBF5';
-  ctx.fillRect(ix,iy,iw,ih);
+  // 对无卡纸的框（无框/自适应），用简单内孔
+  const useMatInset = (S.fi!==1 && S.fi!==5); // 非无框、非自适应才有卡纸
+  const pix = useMatInset ? ix : x+fw;
+  const piy = useMatInset ? iy : y+fw;
+  const piw = useMatInset ? iw : w-fw*2;
+  const pih = useMatInset ? ih : h-fw*2;
+
+  // 自适应框：填充照片区域背景（fAdaptive里drawMat已画了卡纸，这里只需确保内孔底色）
+  if(isAdaptive){
+    ctx.fillStyle=S.adaptiveMatColor||'#F3F1EC';
+    ctx.fillRect(pix,piy,piw,pih);
+  } else if(useMatInset){
+    // 有卡纸的框：内孔底色填白，防止非方形照片的留白区域露出黑色投影
+    ctx.fillStyle='#FDFBF5';
+    ctx.fillRect(pix,piy,piw,pih);
+  }
 
   // 照片：按内孔 contain 完整显示
   const asp=img.width/img.height;
-  const boxAsp=iw/ih;
+  const boxAsp=piw/pih;
   let dw,dh,dx,dy;
   if(asp>boxAsp){
-    dw=iw; dh=dw/asp; dx=ix; dy=iy+(ih-dh)/2;
+    dw=piw; dh=dw/asp; dx=pix; dy=piy+(pih-dh)/2;
   }else{
-    dh=ih; dw=dh*asp; dx=ix+(iw-dw)/2; dy=iy;
+    dh=pih; dw=dh*asp; dx=pix+(piw-dw)/2; dy=piy;
   }
   ctx.drawImage(img,dx,dy,dw,dh);
 
@@ -1091,7 +1295,7 @@ function drawFramedPhoto(ctx,x,y,w,h,fw,img,photoH,yOff){
   if(!isAdaptive){
     ctx.strokeStyle='rgba(15,10,8,0.42)';
     ctx.lineWidth=1;
-    ctx.strokeRect(ix+0.5,iy+0.5,iw-1,ih-1);
+    ctx.strokeRect(pix+0.5,piy+0.5,piw-1,pih-1);
   }
 }
 
@@ -1325,7 +1529,9 @@ function execDownload(){
       if(!blob){fallback(canvas);return;}
       const url=URL.createObjectURL(blob);
       const a=document.createElement('a');
-      a.href=url; a.download='深美力画廊-'+Date.now()+'.jpg';
+      const titleVal=document.getElementById('ct').value.trim();
+      const fname=titleVal?`深美力画廊-${titleVal}-${Date.now()}.jpg`:`深美力画廊-${Date.now()}.jpg`;
+      a.href=url; a.download=fname;
       document.body.appendChild(a); a.click();
       setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
     },'image/jpeg',.95);
@@ -1344,11 +1550,12 @@ function loadWallPhoto(e){
     const img=new Image();
     img.onload=()=>{
       S.wallPhoto=img;
+      // 桌面端
       const uz=document.getElementById('wallUpzone');
-      uz.classList.add('active');
-      document.getElementById('wallUpLabel').textContent='✓ '+file.name.slice(0,18);
-      document.getElementById('wallClearBtn').style.display='block';
-      // 选中状态取消色卡选中效果（视觉提示用户当前是自定义背景）
+      if(uz){uz.classList.add('active');document.getElementById('wallUpLabel').textContent='✓ '+file.name.slice(0,18);document.getElementById('wallClearBtn').style.display='block';}
+      // 移动端
+      const muz=document.getElementById('mobWallUpzone');
+      if(muz){muz.classList.add('active');document.getElementById('mobWallUpLabel').textContent='✓ '+file.name.slice(0,18);document.getElementById('mobWallClearBtn').style.display='block';}
       document.querySelectorAll('.wopt').forEach(e=>e.classList.remove('act'));
       render();
     };
@@ -1371,15 +1578,22 @@ function clearWallPhoto(){
 // ═══════════════ RESET ═══════════════
 function resetAll(){
   S.photos=[null,null,null];S.fi=0;S.wi=0;S.wallPhoto=null;
-  clearWallPhoto();S.fw=36;S.ps=58;S.sh=55;S.vp=44;S.gp=24;
+  clearWallPhoto();S.fw=36;S.ps=58;S.sh=55;
+  // 注意：水印文字(wmText)不在重置范围内，保留用户自定义署名
   document.getElementById('mc').style.display='none';
   document.getElementById('hint').style.display='flex';
   document.getElementById('dlbtn').disabled=true;
+  const mb=document.getElementById('mobDlbtn');if(mb)mb.disabled=true;
   document.getElementById('ct').value='';
   document.getElementById('cs').value='';
-  document.getElementById('wmText').value='© 骆驼';
-  const vals=[36,58,55,44,24],ids=['fwv','psv','shv','vpv','gpv'];
-  document.querySelectorAll('input[type=range]').forEach((el,i)=>{el.value=vals[i];document.getElementById(ids[i]).textContent=vals[i];});
+  // 同步移动端铭牌输入框
+  ['mobCt','mobCs','mobCm'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  // wmText 保留不重置
+  // 重置移动端上传区
+  const muz=document.getElementById('mobUpzone');
+  if(muz){muz.className='upzone';muz.innerHTML=`<input type="file" id="mpi0" accept="image/*" onchange="loadPhoto(event,0);mobUploadDone(event,0)"><span class="upicon">⬆</span><p>点击上传照片<br>JPG · PNG · WEBP</p>`;muz.onclick=()=>document.getElementById('mpi0').click();}
+  const vals=[36,58,55],ids=['fwv','psv','shv'];
+  document.querySelectorAll('input[type=range]').forEach((el,i)=>{if(vals[i]!==undefined){el.value=vals[i];document.getElementById(ids[i]).textContent=vals[i];}});
   document.querySelectorAll('.fopt').forEach((e,i)=>e.classList.toggle('act',i===0));
   document.querySelectorAll('.wopt').forEach((e,i)=>e.classList.toggle('act',i===S.wi));
   const uz=document.getElementById('upzone');
@@ -1421,6 +1635,119 @@ function resetAll(){
 buildFrameGrid();
 buildWallGrid();
 loadCounterOnStart();
+
+// ═══════════════ MOBILE LOGIC ═══════════════
+function mobSwitch(idx, el){
+  document.querySelectorAll('.mob-tab').forEach(t=>t.classList.remove('act'));
+  el.classList.add('act');
+  document.querySelectorAll('.mob-panel').forEach((p,i)=>p.classList.toggle('act',i===idx));
+}
+
+// 同步移动端模式Tab和桌面端
+function syncMtabs(el, idx){
+  // 同步桌面端mtab高亮
+  document.querySelectorAll('#singleUp,.mtab').forEach(()=>{});
+  const deskTabs=document.querySelectorAll('.sb > div:first-child .mtab');
+  deskTabs.forEach((t,i)=>t.classList.toggle('act',i===idx));
+  // 同步移动端多图上传区
+  const n=idx===0?1:idx===1?2:4;
+  document.getElementById('mobSingleUp').style.display=n===1?'block':'none';
+  document.getElementById('mobMultiUp').style.display=n===1?'none':'block';
+  buildMobSlots(n);
+}
+
+function buildMobSlots(n){
+  const g=document.getElementById('mobSlotGrid');
+  g.className='slotgrid '+(n<=2?'s2':'s4');
+  g.innerHTML='';
+  for(let i=0;i<n;i++){
+    const s=document.createElement('div');
+    s.className='slot';
+    const hasPhoto=S.photos[i];
+    s.innerHTML=`<input type="file" id="msi${i}" accept="image/*" onchange="loadPhoto(event,${i});mobSlotDone(event,${i})">`
+      +(hasPhoto?`<img src="${S.photos[i].src}" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0">`
+               :`<span style="font-size:12px;opacity:.25;color:var(--parch)">${i+1}</span>`);
+    s.onclick=()=>document.getElementById('msi'+i).click();
+    g.appendChild(s);
+  }
+}
+
+function mobSlotDone(e,idx){
+  const file=e.target.files[0];if(!file)return;
+  const slot=document.getElementById('mobSlotGrid').children[idx];
+  if(!slot)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    let im=slot.querySelector('img');
+    if(!im){im=document.createElement('img');im.style.cssText='width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0';slot.appendChild(im);}
+    im.src=ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function mobUploadDone(e, idx){
+  const file=e.target.files[0];if(!file)return;
+  const uz=document.getElementById('mobUpzone');
+  if(!uz)return;
+  uz.className='upzone done';
+  uz.innerHTML=`<input type="file" id="mpi0" accept="image/*" onchange="loadPhoto(event,0);mobUploadDone(event,0)"><span class="upicon" style="font-size:13px;opacity:.9;color:#5a9060">✓</span><p style="color:var(--goldl)">${file.name.slice(0,22)}<br><span style="color:var(--dim)">点击更换</span></p>`;
+  uz.onclick=()=>document.getElementById('mpi0').click();
+}
+
+// 移动端导出按钮同步禁用状态
+function syncMobDlBtn(){
+  const b=document.getElementById('mobDlbtn');
+  if(b)b.disabled=!S.photos.some(p=>p);
+}
+
+// 移动端构建画框和墙色格
+function buildMobFrameGrid(){
+  const g=document.getElementById('mobFgrid');
+  if(!g)return;
+  frames.forEach((f,i)=>{
+    const el=document.createElement('div');
+    el.className='fopt'+(i===S.fi?' act':'');
+    el.innerHTML=`<canvas width="60" height="44" id="mfp${i}"></canvas><div class="flbl">${f.n}</div>`;
+    el.onclick=()=>{
+      S.fi=i;
+      document.querySelectorAll('.fopt').forEach((e,j)=>e.classList.toggle('act',j===i));
+      render();
+    };
+    g.appendChild(el);
+  });
+  setTimeout(()=>{
+    frames.forEach((f,i)=>{
+      const c=document.getElementById('mfp'+i);
+      if(!c)return;
+      const ctx=c.getContext('2d');
+      ctx.fillStyle='#C8C0B2';ctx.fillRect(0,0,60,44);
+      ctx.fillStyle='#6a6258';ctx.fillRect(14,10,32,24);
+      f.fn(ctx,2,2,56,40,10);
+    });
+  },120);
+}
+
+function buildMobWallGrid(){
+  const g=document.getElementById('mobWgrid');
+  if(!g)return;
+  walls.forEach((w,i)=>{
+    const el=document.createElement('div');
+    el.className='wopt'+(i===S.wi?' act':'');
+    el.style.background=w.c;el.title=w.n;
+    const lum=(()=>{const r=parseInt(w.c.slice(1,3),16),g2=parseInt(w.c.slice(3,5),16),b=parseInt(w.c.slice(5,7),16);return(r*299+g2*587+b*114)/1000;})();
+    const spanColor=lum>140?'rgba(30,22,14,0.75)':'rgba(255,252,245,0.80)';
+    el.innerHTML=`<span style="color:${spanColor};mix-blend-mode:normal">${w.n}</span>`;
+    el.onclick=()=>{
+      S.wi=i;
+      document.querySelectorAll('.wopt').forEach((e,j)=>e.classList.toggle('act',j===i));
+      render();
+    };
+    g.appendChild(el);
+  });
+}
+
+buildMobFrameGrid();
+buildMobWallGrid();
 </script>
 </body>
 </html>
