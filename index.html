@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>深美力画廊 · SHEN MEI LI GALERIE</title>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@300;400&family=Noto+Sans+SC:wght@100;300;400&display=swap" rel="stylesheet">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a597483e2e6ccb52f4ce284c8af4582e";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 <style>
 /* ── 大英博物馆配色 ──────────────────────────
    主背景  #1C1A17  深暖褐黑（展厅暗墙）
@@ -398,7 +407,7 @@ footer{
 <header>
   <div class="brand">
     <div class="brand-name">深美力画廊 · SHEN MEI LI GALERIE</div>
-    <div class="brand-ver">v 36.0</div>
+    <div class="brand-ver">v 37.0</div>
   </div>
   <div class="hdr-right">
     <div class="free-badge">✦ 完全免费</div>
@@ -1442,20 +1451,17 @@ function doDownload(){
   if(dlCount>=4){ execDownload(); return; } // 第4次起静默下载
   runCeremony(dlCount); // 前3次：金句仪式，2.8s后内部触发下载
 }
-// ── 全局计数器（counterapi.dev 免费公共API）─────────────
-// namespace: shenmeili / key: galerie-dl
-const _CNT='https://api.counterapi.dev/v1/shenmeili/galerie-dl';
+// ── 全局计数器（不蒜子）─────────────
 function hitCounter(){
-  fetch(_CNT+'/up')
-    .then(r=>r.json())
-    .then(d=>{_showCount(d.count!=null?d.count:(d.value||0));})
-    .catch(()=>_showCount(parseInt(localStorage.getItem('sml_dl_count')||'0')));
+  // 不蒜子只统计PV/UV，下载次数用localStorage本地累计展示
+  const k='sml_dl_count';
+  const n=(parseInt(localStorage.getItem(k)||'0'))+1;
+  localStorage.setItem(k,String(n));
+  _showCount(n);
 }
 function loadCounterOnStart(){
-  fetch(_CNT)
-    .then(r=>r.json())
-    .then(d=>{_showCount(d.count!=null?d.count:(d.value||0));})
-    .catch(()=>_showCount(parseInt(localStorage.getItem('sml_dl_count')||'0')));
+  const n=parseInt(localStorage.getItem('sml_dl_count')||'0');
+  _showCount(n);
 }
 function _showCount(n){
   const el=document.getElementById('dlCountDisplay');
