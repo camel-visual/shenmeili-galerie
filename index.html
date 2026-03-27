@@ -354,17 +354,20 @@ input[type=range]::-webkit-slider-thumb{
   /* Tab内容面板 — display由外部规则控制 */
 
   /* 在移动端隐藏桌面侧边栏的各个section（用mob-panel替代） */
-  .sb > div:not(.mob-tabs):not(.mob-panel){display:none!important;}
+  .sb > div:not(.mob-tabs):not(.mob-panel):not(.mob-export){display:none!important;}
   .sb > .btnrow{display:none!important;}
 
   /* 移动端底部固定导出栏 */
   .mob-export{
-    position:sticky;bottom:0;
+    position:fixed;bottom:0;left:0;right:0;
     display:flex;gap:8px;padding:10px 16px;
     background:var(--surf);border-top:1px solid var(--bdr);
-    z-index:100;
+    z-index:200;
   }
   .mob-export .btn{padding:12px 8px;font-size:9px;}
+
+  /* 面板底部留出导出栏的高度，防止内容被遮住 */
+  .mob-panel{padding-bottom:80px!important;}
 
   /* Footer隐藏 */
   footer{display:none;}
@@ -407,7 +410,7 @@ footer{
 <header>
   <div class="brand">
     <div class="brand-name">深美力画廊 · SHEN MEI LI GALERIE</div>
-    <div class="brand-ver">v 37.0</div>
+    <div class="brand-ver">v 38.0</div>
   </div>
   <div class="hdr-right">
     <div class="free-badge">✦ 完全免费</div>
@@ -482,9 +485,9 @@ footer{
 
     <div>
       <div class="sec-title">展览铭牌</div>
-      <input class="cinput" id="ct" placeholder="作品主标题" oninput="render()">
+      <input class="cinput" id="ct" placeholder="作品标题" oninput="render()">
       <input class="cinput sub" id="cs" placeholder="作者 · 背后故事" oninput="render()">
-      <input class="cinput sub" id="cm" placeholder="媒介 · 尺寸 · 年份  (如: Archival Print, 2026)" oninput="render()" style="margin-top:6px;font-size:8px;letter-spacing:.12em;opacity:.8">
+      <input class="cinput sub" id="cm" placeholder="媒介 · 参数 · 年份  (如: Archival Print, 2026)" oninput="render()" style="margin-top:6px;font-size:8px;letter-spacing:.12em;opacity:.8">
       <div style="margin-top:8px;display:flex;gap:6px;align-items:center">
         <label class="wm-check" style="gap:5px">
           <input type="checkbox" id="captionShow" checked onchange="render()">
@@ -581,9 +584,9 @@ footer{
     <!-- 面板4：铭牌 + 水印 -->
     <div class="mob-panel" id="mobP4">
       <div class="sec-title" style="margin-bottom:9px">展览铭牌</div>
-      <input class="cinput" id="mobCt" placeholder="作品主标题" oninput="document.getElementById('ct').value=this.value;render()">
+      <input class="cinput" id="mobCt" placeholder="作品标题" oninput="document.getElementById('ct').value=this.value;render()">
       <input class="cinput sub" id="mobCs" placeholder="作者 · 背后故事" oninput="document.getElementById('cs').value=this.value;render()">
-      <input class="cinput sub" id="mobCm" placeholder="媒介 · 尺寸 · 年份" oninput="document.getElementById('cm').value=this.value;render()" style="margin-top:6px;font-size:8px;letter-spacing:.12em;opacity:.8">
+      <input class="cinput sub" id="mobCm" placeholder="媒介 · 参数 · 年份" oninput="document.getElementById('cm').value=this.value;render()" style="margin-top:6px;font-size:8px;letter-spacing:.12em;opacity:.8">
       <div style="margin-top:8px;display:flex;gap:6px;align-items:center">
         <label class="wm-check" style="gap:5px">
           <input type="checkbox" id="mobCaptionShow" checked onchange="document.getElementById('captionShow').checked=this.checked;render()">
