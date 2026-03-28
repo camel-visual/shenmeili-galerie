@@ -60,10 +60,10 @@ header{
 }
 .hdr-right{display:flex;align-items:center;gap:14px}
 .free-badge{
-  font-size:8px;letter-spacing:.2em;color:var(--green);
+  font-size:10px;letter-spacing:.18em;color:var(--green);
   border:1px solid rgba(74,96,64,.4);padding:3px 9px;
 }
-.author-note{font-size:8px;color:var(--dim);letter-spacing:.18em}
+.author-note{font-size:10px;color:var(--dim);letter-spacing:.15em}
 .author-note b{color:var(--goldl)}
 .feedback{
   font-size:8px;color:var(--gold);letter-spacing:.18em;
@@ -84,7 +84,7 @@ header{
 .sb::-webkit-scrollbar{width:2px}
 .sb::-webkit-scrollbar-thumb{background:var(--bdr)}
 .sec-title{
-  font-size:7px;letter-spacing:.5em;color:var(--gold);
+  font-size:10px;letter-spacing:.4em;color:var(--gold);
   text-transform:uppercase;margin-bottom:9px;
   display:flex;align-items:center;gap:8px;
 }
@@ -93,7 +93,7 @@ header{
 /* Mode tabs */
 .mtabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
 .mtab{
-  padding:7px 3px;text-align:center;font-size:8px;
+  padding:8px 3px;text-align:center;font-size:11px;
   letter-spacing:.2em;color:var(--dim);cursor:pointer;
   border:1px solid var(--bdr);transition:all .2s;
 }
@@ -109,7 +109,7 @@ header{
 .upzone input{display:none}
 .upzone.done{border-color:rgba(74,96,64,.5);background:rgba(74,96,64,.04)}
 .upicon{font-size:18px;opacity:.35;display:block;margin-bottom:5px}
-.upzone p{font-size:8px;letter-spacing:.18em;color:var(--dim);line-height:1.9}
+.upzone p{font-size:11px;letter-spacing:.15em;color:var(--dim);line-height:1.9}
 
 /* Slots */
 .slotgrid{display:grid;gap:5px}
@@ -126,7 +126,7 @@ header{
 .slot input{display:none}
 .slot img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
 .slot-n{font-size:16px;opacity:.18;color:var(--parch)}
-.slot-hint{font-size:6px;letter-spacing:.15em;color:var(--dim)}
+.slot-hint{font-size:9px;letter-spacing:.12em;color:var(--dim)}
 
 /* Frame grid */
 .fgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
@@ -139,7 +139,7 @@ header{
 .fopt:hover{border-color:var(--dim)}
 .fopt.act{border-color:var(--gold)}
 .fopt canvas{width:60px;height:44px}
-.flbl{font-size:6px;letter-spacing:.15em;color:var(--dim)}
+.flbl{font-size:9px;letter-spacing:.12em;color:var(--dim)}
 
 /* Wall grid */
 .wgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
@@ -147,14 +147,14 @@ header{
 .wall-upzone{
   flex:1;border:1px dashed var(--bdr);padding:7px 8px;
   cursor:pointer;transition:all .25s;text-align:center;
-  font-size:8px;color:var(--dim);letter-spacing:.15em;
+  font-size:11px;color:var(--dim);letter-spacing:.12em;
 }
 .wall-upzone:hover{border-color:var(--gold);color:var(--goldl)}
 .wall-upzone.active{border-color:rgba(74,96,64,.5);color:#5a9060}
 .wall-upzone input{display:none}
 .wall-clear-btn{
   padding:0 9px;background:transparent;border:1px solid var(--bdr);
-  color:var(--dim);font-size:9px;cursor:pointer;transition:all .2s;white-space:nowrap;
+  color:var(--dim);font-size:11px;cursor:pointer;transition:all .2s;white-space:nowrap;
 }
 .wall-clear-btn:hover{border-color:#a04040;color:#c06060}
 .wopt{
@@ -165,7 +165,7 @@ header{
 .wopt.act{border-color:var(--gold)}
 .wopt span{
   position:absolute;bottom:2px;left:0;right:0;
-  text-align:center;font-size:5px;
+  text-align:center;font-size:7px;
   /* 颜色由 JS 动态注入 data-dark 属性控制 */
   color:rgba(255,255,255,.7);
   mix-blend-mode:difference;  /* 自动与背景对比 */
@@ -175,7 +175,7 @@ header{
 /* Sliders */
 .ctrl{display:flex;flex-direction:column;gap:7px}
 .ci{display:flex;flex-direction:column;gap:4px}
-.clbl{display:flex;justify-content:space-between;font-size:7px;letter-spacing:.15em;color:var(--dim)}
+.clbl{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.12em;color:var(--dim)}
 .clbl span{color:var(--goldl)}
 input[type=range]{
   -webkit-appearance:none;width:100%;height:1px;
@@ -195,23 +195,23 @@ input[type=range]::-webkit-slider-thumb{
   letter-spacing:.08em;transition:border-color .2s;
 }
 .cinput:focus{border-color:var(--gold)}
-.cinput::placeholder{color:var(--dim);font-size:10px;font-family:'Noto Sans SC',sans-serif}
+.cinput::placeholder{color:var(--dim);font-size:12px;font-family:'Noto Sans SC',sans-serif}
 .cinput.sub{
   font-family:'Noto Sans SC',sans-serif;
-  font-size:9px;letter-spacing:.2em;margin-top:8px;
+  font-size:11px;letter-spacing:.18em;margin-top:8px;
 }
 
 /* Watermark */
 .wm-row{display:flex;align-items:center;gap:8px;margin-top:2px}
 .wm-check{
   display:flex;align-items:center;gap:5px;cursor:pointer;
-  font-size:7px;color:var(--dim);letter-spacing:.2em;
+  font-size:10px;color:var(--dim);letter-spacing:.2em;
 }
 .wm-check input{accent-color:var(--gold);cursor:pointer}
 .wm-inp{
   flex:1;background:transparent;border:none;
   border-bottom:1px solid var(--bdr);color:var(--goldl);
-  font-size:9px;letter-spacing:.15em;padding:3px 0;outline:none;
+  font-size:11px;letter-spacing:.12em;padding:3px 0;outline:none;
 }
 .wm-inp:focus{border-color:var(--gold)}
 
@@ -220,7 +220,7 @@ input[type=range]::-webkit-slider-thumb{
 .btnrow{display:flex;gap:6px;margin-top:auto;padding-top:4px}
 .btn{
   flex:1;padding:11px 4px;border:none;
-  font-family:'Noto Sans SC',sans-serif;font-size:8px;
+  font-family:'Noto Sans SC',sans-serif;font-size:11px;
   font-weight:300;letter-spacing:.3em;cursor:pointer;transition:all .3s;
 }
 .btn-export{background:var(--gold);color:#1C1A17}
@@ -256,7 +256,7 @@ input[type=range]::-webkit-slider-thumb{
 }
 .statusbar{
   position:absolute;bottom:10px;right:14px;
-  font-size:7px;letter-spacing:.15em;color:var(--dim);
+  font-size:9px;letter-spacing:.12em;color:var(--dim);
 }
 
 /* ══ DOWNLOAD OVERLAY ══ */
@@ -343,8 +343,8 @@ input[type=range]::-webkit-slider-thumb{
   }
   .mob-tab{
     flex:1;padding:10px 4px 9px;
-    text-align:center;font-size:7px;
-    letter-spacing:.18em;color:var(--dim);
+    text-align:center;font-size:10px;
+    letter-spacing:.15em;color:var(--dim);
     cursor:pointer;border-bottom:2px solid transparent;
     transition:all .2s;background:transparent;border-top:none;border-left:none;border-right:none;
     font-family:'Noto Sans SC',sans-serif;font-weight:300;
@@ -410,7 +410,7 @@ footer{
 <header>
   <div class="brand">
     <div class="brand-name">深美力画廊 · SHEN MEI LI GALERIE</div>
-    <div class="brand-ver">v 38.0</div>
+    <div class="brand-ver">v 39.0</div>
   </div>
   <div class="hdr-right">
     <div class="free-badge">✦ 完全免费</div>
@@ -486,17 +486,17 @@ footer{
     <div>
       <div class="sec-title">展览铭牌</div>
       <input class="cinput" id="ct" placeholder="作品标题" oninput="render()">
-      <input class="cinput sub" id="cs" placeholder="作者 · 背后故事" oninput="render()">
+      <input class="cinput sub" id="cs" placeholder="作者 · 背后的故事" oninput="render()">
       <input class="cinput sub" id="cm" placeholder="媒介 · 参数 · 年份  (如: Archival Print, 2026)" oninput="render()" style="margin-top:6px;font-size:8px;letter-spacing:.12em;opacity:.8">
       <div style="margin-top:8px;display:flex;gap:6px;align-items:center">
         <label class="wm-check" style="gap:5px">
           <input type="checkbox" id="captionShow" checked onchange="render()">
-          <span style="font-size:7px;letter-spacing:.2em;color:var(--dim)">显示铭牌</span>
+          <span style="font-size:10px;letter-spacing:.18em;color:var(--dim)">显示铭牌</span>
         </label>
         <div style="flex:1"></div>
         <label class="wm-check" style="gap:5px">
           <input type="checkbox" id="captionDark" onchange="render()">
-          <span style="font-size:7px;letter-spacing:.2em;color:var(--dim)">深色铭牌</span>
+          <span style="font-size:10px;letter-spacing:.18em;color:var(--dim)">深色铭牌</span>
         </label>
       </div>
     </div>
@@ -590,12 +590,12 @@ footer{
       <div style="margin-top:8px;display:flex;gap:6px;align-items:center">
         <label class="wm-check" style="gap:5px">
           <input type="checkbox" id="mobCaptionShow" checked onchange="document.getElementById('captionShow').checked=this.checked;render()">
-          <span style="font-size:7px;letter-spacing:.2em;color:var(--dim)">显示铭牌</span>
+          <span style="font-size:10px;letter-spacing:.18em;color:var(--dim)">显示铭牌</span>
         </label>
         <div style="flex:1"></div>
         <label class="wm-check" style="gap:5px">
           <input type="checkbox" id="mobCaptionDark" onchange="document.getElementById('captionDark').checked=this.checked;render()">
-          <span style="font-size:7px;letter-spacing:.2em;color:var(--dim)">深色铭牌</span>
+          <span style="font-size:10px;letter-spacing:.18em;color:var(--dim)">深色铭牌</span>
         </label>
       </div>
       <div class="sec-title" style="margin-top:16px;margin-bottom:9px">署名水印</div>
